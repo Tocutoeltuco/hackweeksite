@@ -1,6 +1,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
+      <a href="/"><img class="img-fluid mr-2" src="assets/app/logo.png"></a>
       <a class="navbar-brand" href="/">Chishiki</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
@@ -12,7 +13,18 @@
             <a class="nav-link" href="#features">Features</a>
           </li>
         </ul>
+        {{#if token}}
+        <div class="btn-group">
+          <a class="btn dropdown-toggle btn-link text-light py-0" data-toggle="dropdown">
+            <img src="{{#if user.avatar}}https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}{{else}}https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png{{/if}}" class="rounded-circle" width="40" >&nbsp;&nbsp;&nbsp;{{user.name}} </a>
+          <div class="dropdown-menu"> <a class="dropdown-item" href="dashboard">Manage Servers</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="discord/logout">Logout</a>
+          </div>
+        </div>
+        {{else}}
         <a class="btn navbar-btn mx-2 btn-outline-primary" href="discord/login">Login with Discord</a>
+        {{/if}}
       </div>
     </div>
   </nav>
@@ -20,16 +32,16 @@
   <div class="section-fade-out pt-5" style="background-image: url(&quot;assets/app/cover.jpg&quot;); background-position: bottom;">
     <div class="container mt-5 pt-5">
       <div class="row">
-        <div class="my-5 text-lg-left text-center align-self-center col-sm-6">
+        <div class="my-5 text-lg-left text-center align-self-center col-md-6">
           <h1 class="display-2">CHISHIKI</h1>
           <p class="lead">Enhance your Discord server with easy-to-use tools and utilities!</p>
           <div class="row mt-5 justify-content-center">
-            <div class="col-6" style=""><a class="btn btn-outline-primary w-100" href="discord/login">Login with Discord</a></div>
+            <div class="col-6" style=""><a class="btn btn-outline-primary w-100" href="{{#if token}}dashboard{{else}}discord/login{{/if}}">{{#if token}}Manage Servers{{else}}Login with Discord{{/if}}</a></div>
             <div class="col-6" style=""><a class="btn btn-primary w-100" href="#">Invite</a></div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <img class="img-fluid d-block mx-auto" src="assets/app/Chishiki.png" width="200"> </div>
+        <div class="col-md-6">
+          <img class="img-fluid d-block mx-auto w-50" src="assets/app/Chishiki.png"> </div>
       </div>
     </div>
   </div>
@@ -37,11 +49,13 @@
   <div class="py-5" id="about">
     <div class="container">
       <div class="row py-5">
-        <div class="col-md-5 order-2 order-md-1 animate-in-left">
-          <img class="img-fluid d-block my-3 mx-auto" src="assets/app/placeholder.png" width="200"> </div>
+        <div class="col-md-5 order-2 order-md-1">
+          <img class="img-fluid d-block my-3 mx-auto" src="assets/app/about.png"> </div>
         <div class="col-md-7 align-self-center order-1 order-md-2 my-3 text-md-left text-center">
           <h2>About</h2>
-          <p class="my-4 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+          <p class="my-4 text-muted">Moshi Moshi!
+            My name's Chishiki, which means knowledge. I have the knowledge of many commands that will help make your server the best!<br>
+            Right now you're in my safehouse, a website with a wonderful dashboard for you to configure me and my wonderful features. Don't forget to check them out!</p>
           <a class="btn btn-outline-primary" href="#features">Learn more</a>
         </div>
       </div>
@@ -64,8 +78,8 @@
           <h4 class="text-primary">Fun</h4>
           <p class="mb-5 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
         </div>
-        <div class="my-3 col-md-4 d-none d-lg-block animate-in-down">
-          <img class="img-fluid d-block mx-auto" src="assets/app/placeholder.png" width="300" > </div>
+        <div class="my-3 col-md-4 d-none d-lg-block">
+          <img class="img-fluid d-block mx-auto" src="assets/app/features.png" width="300" > </div>
         <div class="align-self-center text-md-left text-center col-lg-4 col-md-6">
           <h4 class="text-primary">Dashboard</h4>
           <p class="mb-5 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
@@ -82,7 +96,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 my-3 text-center">
-          <p class="text-muted">© Copyright 2018 Kek Team - All rights reserved.</p>
+          <p class="text-muted">© Copyright 2019 Kek Team - All rights reserved.</p>
         </div>
       </div>
     </div>

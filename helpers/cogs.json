@@ -1,0 +1,48 @@
+{
+	"activity": {
+		"name": "Activity System",
+		"cmds": [
+			{"name": "top", "desc": "Shows the experience leaderboard.", "permission": "access_top_cmd"},
+			{"name": "level", "desc": "Shows the level of a user.", "permission": "access_level_cmd"}
+		]
+	},
+	"api": {
+		"name": "Info Piece",
+		"cmds": [
+			{"name": "urban", "desc": "Shows the definition of an expression.", "permission": "access_urban_cmd"},
+			{"name": "dict", "desc": "Shows the definition of a word.", "permission": "access_dict_cmd"},
+			{"name": "anime", "desc": "Shows information about an anime.", "permission": "access_anime_cmd"},
+			{"name": "country", "desc": "Shows information about a country.", "permission": "access_country_cmd"}
+		]
+	},
+	"modcmds": {
+		"name": "Moderation",
+		"cmds": [
+			{"name": "del", "desc": "Deletes all the messages in the range of  given message-ids.", "permission": "access_del_cmd"},
+			{"name": "ban", "desc": "Bans a member from the server.", "permission": "access_ban_cmd"},
+			{"name": "kick", "desc": "Kicks a member from the server.", "permission": "access_kick_cmd"},
+			{"name": "mute", "desc": "Mutes a member in the server.", "permission": "access_mute_cmd"},
+			{"name": "sancinfo", "desc": "Gets information about a user's sanction.", "permission": "access_sancinfo_cmd"},
+			{"name": "remsanc", "desc": "Removes a user's sanction.", "permission": "access_remsanc_cmd"}
+		]
+	},
+	"search": {
+		"name": "Search",
+		"cmds": [
+			{"name": "list", "desc": "Find all the users with a specific role.", "permission": "access_list_cmd"},
+			{"name": "searchin", "desc": "Find a user with a specific role.", "permission": "access_searchin_cmd"}
+		]
+	},
+	"simplecmds": {
+		"name": "Fun And Utilities",
+		"cmds": [
+			{"name": "Giveaway / Stopgiveaway", "desc": "Makes/Stops a giveaway in the current channel.", "permission": "access_giveaway_cmd"},
+			{"name": "Remind / Stopreminder", "desc": "Adds/Stops a reminder. The bot will/won't remind you!", "permission": "access_remind_cmd"},
+			{"name": "quote", "desc": "Quotes a message from this or the given channel.", "permission": "access_quote_cmd"},
+			{"name": "color", "desc": "Shows a color.", "permission": "access_color_cmd"},
+			{"name": "exec", "desc": "Runs a script using Rextester.", "permission": "access_exec_cmd"},
+			{"name": "meme", "desc": "Shows a random meme!", "permission": "access_meme_cmd"},
+			{"name": "translate", "desc": "Translates a sentence.", "permission": "access_translate_cmd"}
+		]
+	}
+}

@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
 	if (req.session.token)
 		res.redirect('/');
 	else 
-		res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${redirect}&response_type=code&scope=identify`);
+		res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${redirect}&response_type=code&scope=identify%20guilds`);
 });
 
 router.get('/callback', (req, res, next) => {
@@ -30,6 +30,7 @@ router.get('/callback', (req, res, next) => {
 	    }
 	}).then(data => {
 		req.session.token = data.data.access_token;
+		req.session.date = new Date().getTime() + data.data.expires_in;
 		res.redirect('/');
 	}).catch(next);
 });

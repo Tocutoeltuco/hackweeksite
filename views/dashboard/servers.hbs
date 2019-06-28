@@ -1,0 +1,36 @@
+<!-- Navbar -->
+  <nav class="navbar navbar-dark fixed-top bg-dark" >
+    <div class="container">
+      <a href="/"><img class="img-fluid mr-2" src="assets/app/logo.png"></a>
+      <a class="navbar-brand" href="/">Chishiki</a>
+      <div class="btn-group">
+        <a class="btn dropdown-toggle btn-link text-light py-0" data-toggle="dropdown">
+          <img src="{{#if user.avatar}}https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}{{else}}https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png{{/if}}" class="rounded-circle" width="40" >&nbsp;&nbsp;&nbsp;{{user.name}} </a>
+        <div class="dropdown-menu"> <a class="dropdown-item" href="dashboard">Manage Servers</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="discord/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="py-5 my-5 text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1><b>SELECT A SERVER</b></h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        {{#each servers}}
+        <a href="dashboard/{{this.id}}" class="col-sm-6 col-md-3">
+          <img class="img-fluid d-block rounded-circle mx-auto mt-5 mb-1" src="{{#if this.icon}}https://cdn.discordapp.com/icons/{{this.id}}/{{this.icon}}{{else}}assets/app/gray.png{{/if}}" width="127">
+          <div class="row">
+            <div class="col-12">
+              <div class="lead">{{{this.name}}}</div>
+            </div>
+          </div>
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>

@@ -5,14 +5,20 @@ const express = require('express'),
 
 const auth = require('./middlewares/auth'),
 	  handleErr = require('./middlewares/error'),
-	  oauth2 = require('./controllers/oauth2');
+	  oauth2 = require('./controllers/oauth2'),
+	  dashboard = require('./controllers/dashboard');
 
-app.engine('hbs', hbs({extname: '.hbs'}));
+app.engine('hbs', hbs({extname: '.hbs', helpers: {
+	prop: (obj, key) => obj[key],
+	in: (obj, key, type, id) => (obj[key][type].indexOf(id)!==-1),
+	equals: (a, b) => a==b
+}}));
 app.set('view engine', 'hbs');
 
 app.use(auth);
 app.use(express.static('public'));
 app.use('/discord', oauth2);
+app.use('/dashboard', dashboard);
 
 app.get('/', (req, res) => {
 	res.render('home', { title: 'Chishiki: The Discord Bot', token: req.session.token, user: req.session.user });

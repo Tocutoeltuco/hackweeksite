@@ -5,6 +5,9 @@ const checkStr = (str, maxLen) => ((typeof str == 'string') && str.length <= max
 
 const Guild = {
 	cogs: cogs,
+	connected() {
+		return socket.connected();
+	},
 	findById(id) {
 		return socket.request({type: 'guild_info', guild_id: id});
 	},

@@ -1,14 +1,14 @@
 <!-- Navbar -->
   <nav class="navbar navbar-dark fixed-top bg-dark" >
-    <div class="container">
-      <a href="/"><img class="img-fluid mr-2" src="assets/app/logo.png"></a>
+    <div class="container text-left">
+      <a href="/"><img class="img-fluid mr-2" src="/assets/app/logo.png"></a>
       <a class="navbar-brand" href="/">Chishiki</a>
       <div class="btn-group">
         <a class="btn dropdown-toggle btn-link text-light py-0" data-toggle="dropdown">
           <img src="{{#if user.avatar}}https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}{{else}}https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png{{/if}}" class="rounded-circle" width="40" >&nbsp;&nbsp;&nbsp;{{user.name}} </a>
-        <div class="dropdown-menu"> <a class="dropdown-item" href="dashboard">Manage Servers</a>
+        <div class="dropdown-menu"> <a class="dropdown-item" href="/dashboard">Manage Servers</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="discord/logout">Logout</a>
+          <a class="dropdown-item" href="/discord/logout">Logout</a>
         </div>
       </div>
     </div>

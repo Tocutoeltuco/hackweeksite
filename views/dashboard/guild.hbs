@@ -1,224 +1,233 @@
-  <nav class="navbar navbar-dark fixed-top bg-dark" >
-    <div class="container">
-      <a href="/"><img class="img-fluid mr-2" src="assets/app/logo.png"></a>
-      <a class="navbar-brand" href="/">Chishiki</a>
-      <div class="btn-group">
-        <a class="btn dropdown-toggle btn-link text-light py-0" data-toggle="dropdown">
-          <img src="{{#if user.avatar}}https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}{{else}}https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png{{/if}}" class="rounded-circle" width="40" >&nbsp;&nbsp;&nbsp;{{user.name}} </a>
-        <div class="dropdown-menu"> <a class="dropdown-item" href="dashboard">Manage Servers</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="discord/logout">Logout</a>
-        </div>
+<nav class="navbar navbar-dark fixed-top bg-dark" >
+  <div class="container">
+    <a href="/"><img class="img-fluid mr-2" src="/assets/app/logo.png"></a>
+    <a class="navbar-brand" href="/">Chishiki</a>
+    <div class="btn-group">
+      <a class="btn dropdown-toggle btn-link text-light py-0" data-toggle="dropdown">
+        <img src="{{#if user.avatar}}https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}{{else}}https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png{{/if}}" class="rounded-circle" width="40" >&nbsp;&nbsp;&nbsp;{{user.name}} 
+      </a>
+      <div class="dropdown-menu"> <a class="dropdown-item" href="dashboard">Manage Servers</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="discord/logout">Logout</a>
       </div>
     </div>
-  </nav>
-  <div class="py-5 my-5 text-center">
-    <div class="container">
-      <div class="row pb-2">
-        <div class="col-md-12">
-          <div class="card"> <img src="{{#if guild.icon}}https://cdn.discordapp.com/icons/{{guild.id}}/{{guild.icon}}{{else}}assets/app/gray.png{{/if}}" alt="Card image cap" class="rounded-circle mx-auto mt-3 mb-1" width="255" height="255">
-            <div class="card-body">
-              <h2 class="card-title">{{guild.name}}</h2>
-            </div>
+  </div>
+</nav>
+<div class="py-5 my-5 text-center">
+  <div class="container">
+    <div class="row pb-2">
+      <div class="col-md-12">
+        <div class="card">
+          <img src="{{guild.icon}}" alt="Card image cap" class="rounded-circle mx-auto mt-3 mb-1" width="255" height="255">
+          <div class="card-body">
+            <h2 class="card-title">{{guild.name}}</h2>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="card text-center">
-            <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" data-target="#tabone">Configurations</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active show" data-toggle="tab" data-target="#tabtwo" href="">Permissions<br></a>
-                </li>
-                <li class="nav-item" ><a class="nav-link" data-toggle="tab" data-target="#tabthree" href="">Save</a></li>
-              </ul>
-            </div>
-            <form method="post" action="dashboard/save">
-              <input type="hidden" name="guild" value="{{guild.id}}">
-              <div class="card-body">
-                <div class="tab-content mt-2">
-                  <div class="tab-pane fade" id="tabone" role="tabpanel">
-                    <div class="form-group row lead"> <label class="col-2 col-form-label text-left">Prefix :</label>
-                      <div class="col-2">
-                        <input name="prefix" type="text" value="{{{guild.conf.prefix}}}" class="form-control-plaintext" maxlength="5" required=""> </div>
-                    </div>
-                    <div class="form-group row lead text-left">
-                      <label class="col-12 col-form-label">New Members Log : <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
-                          <label class="btn btn-primary active">
-                            <input type="radio" name="welcome" autocomplete="off" value="1" onchange="$('#joinlog').fadeIn();" {{#if guild.conf.welcome_channel}}checked{{/if}}> Enable </label>
-                          <label class="btn btn-primary">
-                            <input type="radio" name="welcome" autocomplete="off" value="" onchange="$('#joinlog').fadeOut();"{{#unless guild.conf.welcome_channel}}checked{{/unless}}> Disable </label>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="row lead text-left" {{#unless guild.conf.welcome_channel}}style="display:none"{{/unless}} id="joinlog">
-                      <div class="col-6">
-                        <div class="form-group">
-                          <label>Select channel:</label>
-                          <select name="welcome_channel" class="form-control bg-dark text-light" required>
-                          {{#each guild.channels}}
-                            <option value="{{{this.[1]}}}" {{#if (equals this.[1] guild.conf.welcome_channel)}}selected{{/if}}>{{{this.[2]}}}{{#if this.[0]}} ({{{this.[0]}}}){{/if}}</option>
-                          {{/each}}
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                      </div>
-                      <div class="col-12 text-left">
-                        <label>Welcome message:</label>
-                        <textarea name="welcome_message" class="form-control" rows="3" maxlength="1000">{{{guild.conf.welcome_message}}}</textarea>
-                      </div>
-                    </div>
-                    <div class="form-group row lead text-left">
-                      <label class="col-12 col-form-label">Members Leave Log : <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
-                          <label class="btn btn-primary active">
-                            <input type="radio" name="goodbye" autocomplete="off" value="1" onchange="$('#leavelog').fadeIn();" {{#if guild.conf.goodbye_channel}}checked{{/if}}> Enable </label>
-                          <label class="btn btn-primary">
-                            <input type="radio" name="goodbye" autocomplete="off" value="" onchange="$('#leavelog').fadeOut();"{{#unless guild.conf.goodbye_channel}}checked{{/unless}}> Disable </label>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="row lead text-left" {{#unless guild.conf.goodbye_channel}}style="display:none"{{/unless}} id="leavelog">
-                      <div class="col-6">
-                        <div class="form-group">
-                          <label>Select channel:</label>
-                          <select name="goodbye_channel" class="form-control bg-dark text-light" required>
-                          {{#each guild.channels}}
-                            <option value="{{{this.[1]}}}" {{#if (equals this.[1] guild.conf.goodbye_channel)}}selected{{/if}}>{{{this.[2]}}}{{#if this.[0]}} ({{{this.[0]}}}){{/if}}</option>
-                          {{/each}}
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                      </div>
-                      <div class="col-12 text-left">
-                        <label>Goodbye message:</label>
-                        <textarea name="goodbye_message" class="form-control" rows="3" maxlength="1000">{{{guild.conf.goodbye_message}}}</textarea>
-                      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card text-center">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#tabone">Configurations</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" data-target="#tabtwo" href="">Permissions<br></a>
+              </li>
+              <li class="nav-item" >
+                <a class="nav-link" data-toggle="tab" data-target="#tabthree" href="">Save</a>
+              </li>
+            </ul>
+          </div>
+          <form method="post" action="save">
+            <input type="hidden" name="guild" value="{{guild.id}}">
+            <div class="card-body">
+              <div class="tab-content mt-2">
+                <div class="tab-pane fade active show" id="tabone" role="tabpanel">
+                  <div class="form-group row lead">
+                    <label class="col-2 col-form-label text-left">Prefix :</label>
+                    <div class="col-2">
+                      <input name="prefix" type="text" value="{{{guild.conf.prefix}}}" class="form-control-plaintext" maxlength="5" required=""> 
                     </div>
                   </div>
-                  <div class="tab-pane fade active show" id="tabtwo" role="tabpanel">
-                    {{#each cogs}}
-                    <div class="row pb-1">
-                      <div class="col-10 text-left pr-0">
-                        <a class="btn btn-dark w-100 text-left disabled">{{{this.name}}}</a>
-                      </div>
-                      <div class="col-2 pl-1">
-                        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                          <label class="btn btn-primary active w-50">
-                            <input type="radio" name="{{@key}}" onchange="$('#{{@key}}').fadeIn();" value="1" autocomplete="off" {{#if (prop guild.cogs this.name)}}checked{{/if}}> On </label>
-                          <label class="btn btn-primary w-50">
-                            <input type="radio" name="{{@key}}" onchange="$('#{{@key}}').fadeOut();" value="" autocomplete="off" {{#unless (prop guild.cogs this.name)}}checked{{/unless}}> Off </label>
-                        </div>
-                      </div>
+                  <div class="form-group row lead text-left">
+                  <label class="col-12 col-form-label">New Members Log : 
+                    <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
+                      <label class="btn btn-primary active">
+                        <input type="radio" name="welcome" autocomplete="off" value="1" onchange="$('#joinlog').fadeIn();" {{#if guild.conf.welcome_channel}}checked{{/if}}> Enable 
+                      </label>
+                      <label class="btn btn-primary">
+                        <input type="radio" name="welcome" autocomplete="off" value="" onchange="$('#joinlog').fadeOut();" {{#unless guild.conf.welcome_channel}}checked{{/unless}}> Disable 
+                      </label>
                     </div>
-                    <div id="{{@key}}" {{#unless (prop guild.cogs this.name)}}style="display:none"{{/unless}}>
-                      {{#each this.cmds}}
-                      <div class="row pb-1">
-                        <div class="btn-group col">
-                          <a class="btn btn-outline-primary w-100 text-left text-capitalize disabled"> {{this.name}} <br>
-                            <span class="text-light"> {{this.description}} </span>
-                          </a>
-                          <a onclick="$('#{{this.permission}}').fadeToggle();" class="btn btn-primary"><i class="fa fa-cog lead my-3"></i></a>
-                        </div>
-                      </div>
-                      <div id="{{this.permission}}" class="card pb-1" style="display:none">
-                        <div class="card-body">
-                          <div class="row justify-content-around">
-                            <div class="col-md-4">
-                              <h4>Default:</h4>
-                              <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
-                                <label class="btn btn-primary active">
-                                  <input type="radio" name="{{this.permission}}_default" autocomplete="off" value="1" {{#if (prop guild.permissions this.permission).default}}checked{{/if}}> Enable </label>
-                                <label class="btn btn-primary">
-                                  <input type="radio" name="{{this.permission}}_default" autocomplete="off" value="" {{#unless (prop guild.permissions this.permission).default}}checked{{/unless}}> Disable </label>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              <label>Allowed Roles: (Top Priority)</label>
-                              <select name="{{this.permission}}_big_roles" class="custom-select bg-dark" multiple="">
-                                {{#each guild.roles as |role|}}
-                                  <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'big_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
-                                {{/each}}
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label>Allowed Channels:</label>
-                              <select name="{{this.permission}}_allowed_channels" class="custom-select bg-dark" multiple="">
-                                {{#each guild.channels as |channel|}}
-                                  <option value="{{{channel.[1]}}}" {{#if (in guild.permissions this.permission 'allowed_channels' channel.[1])}}selected{{/if}}>{{{channel.[2]}}}{{#if channel.[0]}} ({{{channel.[0]}}}){{/if}}</option>
-                                {{/each}}
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label>Allowed Roles:</label>
-                              <select name="{{this.permission}}_allowed_roles" class="custom-select bg-dark" multiple="">
-                                {{#each guild.roles as |role|}}
-                                  <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'allowed_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
-                                {{/each}}
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label>Denied Channels:</label>
-                              <select name="{{this.permission}}_denied_channels" class="custom-select bg-dark" multiple="">
-                                {{#each guild.channels as |channel|}}
-                                  <option value="{{{channel.[1]}}}" {{#if (in guild.permissions this.permission 'denied_channels' channel.[1])}}selected{{/if}}>{{{channel.[2]}}}{{#if channel.[0]}} ({{{channel.[0]}}}){{/if}}</option>
-                                {{/each}}
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label>Denied Roles:</label>
-                              <select name="{{this.permission}}_denied_roles" class="custom-select bg-dark" multiple="">
-                                {{#each guild.roles as |role|}}
-                                  <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'denied_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
-                                {{/each}}
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {{/each}}
-                    </div>
-                    {{/each}}
-                    <div class="row pb-1">
-                      <div class="col-12 text-left pr-0">
-                        <a class="btn btn-dark w-100 text-left disabled">Dashboard</a>
-                      </div>
-                      <div class="col-2 pl-1">
-                        <a onclick="$('#dashboard').fadeToggle();" class="btn btn-primary w-100"><i class="fa fa-cog lead"></i></a>
-                      </div>
-                    </div>
-                    <div id="dashboard" class="card pb-1" style="display:none">
-                      <div class="card-body">
-                        <div class="row justify-content-center">
-                          <div class="col-md-4">
-                            <label>Allowed Roles:</label>
-                            <select name="edit_guild_config" class="custom-select bg-dark" multiple="">
-                              {{#each guild.roles as |role|}}
-                                <option value="{{{role.[0]}}}" {{#if (in guild.permissions 'edit_guild_config' 'big_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
-                              {{/each}}
+                  </label>
+                </div>
+                <div class="row lead text-left" {{#unless guild.conf.welcome_channel}}style="display:none"{{/unless}} id="joinlog">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Select channel:</label>
+                      <select name="welcome_channel" class="form-control bg-dark text-light" required>
+                        {{#each guild.channels}}
+                        <option value="{{{this.[1]}}}" {{#if (equals this.[1] guild.conf.welcome_channel)}}selected{{/if}}>{{{this.[2]}}}{{#if this.[0]}} ({{{this.[0]}}}){{/if}}</option>
+                        {{/each}}
                             </select>
                           </div>
                         </div>
+                        <div class="col-6">
+                        </div>
+                        <div class="col-12 text-left">
+                          <label>Welcome message:</label>
+                          <textarea name="welcome_message" class="form-control" rows="3" maxlength="1000">{{{guild.conf.welcome_message}}}</textarea>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="tabthree" role="tabpanel">
-                    <div class="row justify-content-center">
-                      <div class="col-6">
-                        <input type="submit" value="Save Modifications" class="btn btn-info w-100">
+                      <div class="form-group row lead text-left">
+                        <label class="col-12 col-form-label">Members Leave Log : <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="goodbye" autocomplete="off" value="1" onchange="$('#leavelog').fadeIn();" {{#if guild.conf.goodbye_channel}}checked{{/if}}> Enable </label>
+                            <label class="btn btn-primary">
+                              <input type="radio" name="goodbye" autocomplete="off" value="" onchange="$('#leavelog').fadeOut();"{{#unless guild.conf.goodbye_channel}}checked{{/unless}}> Disable </label>
+                            </div>
+                          </label>
+                        </div>
+                        <div class="row lead text-left" {{#unless guild.conf.goodbye_channel}}style="display:none"{{/unless}} id="leavelog">
+                          <div class="col-6">
+                            <div class="form-group">
+                              <label>Select channel:</label>
+                              <select name="goodbye_channel" class="form-control bg-dark text-light" required>
+                                {{#each guild.channels}}
+                                <option value="{{{this.[1]}}}" {{#if (equals this.[1] guild.conf.goodbye_channel)}}selected{{/if}}>{{{this.[2]}}}{{#if this.[0]}} ({{{this.[0]}}}){{/if}}</option>
+                                {{/each}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                          </div>
+                          <div class="col-12 text-left">
+                            <label>Goodbye message:</label>
+                            <textarea name="goodbye_message" class="form-control" rows="3" maxlength="1000">{{{guild.conf.goodbye_message}}}</textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+                        {{#each cogs}}
+                        <div class="row pb-1">
+                          <div class="col-10 text-left pr-0">
+                            <a class="btn btn-dark w-100 text-left disabled">{{{this.name}}}</a>
+                          </div>
+                          <div class="col-2 pl-1">
+                            <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                              <label class="btn btn-primary active w-50">
+                                <input type="radio" name="{{@key}}" onchange="$('#{{@key}}').fadeIn();" value="1" autocomplete="off" {{#if (getcog @key)}}checked{{/if}}> On </label>
+                                <label class="btn btn-primary w-50">
+                                  <input type="radio" name="{{@key}}" onchange="$('#{{@key}}').fadeOut();" value="" autocomplete="off" {{#unless (getcog @key)}}checked{{/unless}}> Off </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="{{@key}}" {{#unless (getcog @key)}}style="display:none"{{/unless}}>
+                              {{#each this.cmds}}
+                              <div class="row pb-1">
+                                <div class="btn-group col">
+                                  <a class="btn btn-outline-primary w-100 text-left text-capitalize disabled"> {{this.name}} <br>
+                                    <span class="text-light"> {{this.description}} </span>
+                                  </a>
+                                  <a onclick="$('#{{this.permission}}').fadeToggle();" class="btn btn-primary"><i class="fa fa-cog lead my-3"></i></a>
+                                </div>
+                              </div>
+                              <div id="{{this.permission}}" class="card pb-1" style="display:none">
+                                <div class="card-body">
+                                  <div class="row justify-content-around">
+                                    <div class="col-md-4">
+                                      <h4>Default:</h4>
+                                      <div class="btn-group btn-group-toggle ml-5" data-toggle="buttons">
+                                        <label class="btn btn-primary active">
+                                          <input type="radio" name="{{this.permission}}_default" autocomplete="off" value="1" {{#if (prop (getperm this.permission) 'default')}}checked{{/if}}> Enable </label>
+                                          <label class="btn btn-primary">
+                                            <input type="radio" name="{{this.permission}}_default" autocomplete="off" value="" {{#unless (prop (getperm this.permission) 'default')}}checked{{/unless}}> Disable </label>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label>Allowed Roles: (Top Priority)</label>
+                                          <select name="{{this.permission}}_big_roles" class="custom-select bg-dark" multiple="">
+                                            {{#each guild.roles as |role|}}
+                                            <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'big_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
+                                            {{/each}}
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label>Allowed Channels:</label>
+                                          <select name="{{this.permission}}_allowed_channels" class="custom-select bg-dark" multiple="">
+                                            {{#each guild.channels as |channel|}}
+                                            <option value="{{{channel.[1]}}}" {{#if (in guild.permissions this.permission 'allowed_channels' channel.[1])}}selected{{/if}}>{{{channel.[2]}}}{{#if channel.[0]}} ({{{channel.[0]}}}){{/if}}</option>
+                                            {{/each}}
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label>Allowed Roles:</label>
+                                          <select name="{{this.permission}}_allowed_roles" class="custom-select bg-dark" multiple="">
+                                            {{#each guild.roles as |role|}}
+                                            <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'allowed_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
+                                            {{/each}}
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label>Denied Channels:</label>
+                                          <select name="{{this.permission}}_denied_channels" class="custom-select bg-dark" multiple="">
+                                            {{#each guild.channels as |channel|}}
+                                            <option value="{{{channel.[1]}}}" {{#if (in guild.permissions this.permission 'denied_channels' channel.[1])}}selected{{/if}}>{{{channel.[2]}}}{{#if channel.[0]}} ({{{channel.[0]}}}){{/if}}</option>
+                                            {{/each}}
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label>Denied Roles:</label>
+                                          <select name="{{this.permission}}_denied_roles" class="custom-select bg-dark" multiple="">
+                                            {{#each guild.roles as |role|}}
+                                            <option value="{{{role.[0]}}}" {{#if (in guild.permissions this.permission 'denied_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
+                                            {{/each}}
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {{/each}}
+                                </div>
+                                {{/each}}
+                                <div class="row pb-1">
+                                  <div class="col-12 text-left pr-0">
+                                    <a class="btn btn-dark w-100 text-left disabled">Dashboard</a>
+                                  </div>
+                                  <div class="col-2 pl-1">
+                                    <a onclick="$('#dashboard').fadeToggle();" class="btn btn-primary w-100"><i class="fa fa-cog lead"></i></a>
+                                  </div>
+                                </div>
+                                <div id="dashboard" class="card pb-1" style="display:none">
+                                  <div class="card-body">
+                                    <div class="row justify-content-center">
+                                      <div class="col-md-4">
+                                        <label>Allowed Roles:</label>
+                                        <select name="edit_guild_config" class="custom-select bg-dark" multiple="">
+                                          {{#each guild.roles as |role|}}
+                                          <option value="{{{role.[0]}}}" {{#if (inperm 'edit_guild_config' 'big_roles' role.[0])}}selected{{/if}}>{{{role.[1]}}}</option>
+                                          {{/each}}
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="tabthree" role="tabpanel">
+                                <div class="row justify-content-center">
+                                  <div class="col-6">
+                                    <input type="submit" value="Save Modifications" class="btn btn-info w-100">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>

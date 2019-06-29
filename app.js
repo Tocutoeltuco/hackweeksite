@@ -10,8 +10,8 @@ const auth = require('./middlewares/auth'),
 
 app.engine('hbs', hbs({extname: '.hbs', helpers: {
 	prop: (obj, key) => obj[key],
-	in: (obj, key, type, id) => (obj[key][type].indexOf(id)!==-1),
-	equals: (a, b) => a==b
+	in: (obj, key, type, id, op) => (obj[key][type].indexOf(id)!==-1),
+	equals: (a, b, op) => a==b
 }}));
 app.set('view engine', 'hbs');
 

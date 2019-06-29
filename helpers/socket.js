@@ -11,14 +11,18 @@ bot.connect(process.env.SOCKET_PORT, process.env.SOCKET_IP, () => {
 	console.log('socket connected.');
 });
 
-bot.on('disconnect', reason => console.log('disconnected', reason));
+bot.on('disconnect', reason => {
+	console.log('disconnected', reason);
+	bot.connect();
+});
 
 bot.on('data', data => {
 	buffer += data;
 	const packets = buffer.split(separator);
 	buffer = packets.pop();
 	for (const packet of packets) {
-		queue.shift()(JSON.parse(packet.slice(0,-1)));
+		console.log('recieved', packet);
+		queue.shift()(JSON.parse(packet));
 	}
 });
 

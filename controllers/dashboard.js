@@ -28,9 +28,9 @@ router.get('/', (req, res, next) => {
 	if (!session.token)
 		return res.redirect('/'); //unauthorized
 	getGuilds(session.token).then(lists => {
-		const [list, guilds] = lists;
+		let [list, guilds] = lists;
 		Guild.checkGuilds(session.user.id, list).then(filtered => {
-			guilds.filter(guild => (filtered.indexOf(guild.id) !== -1));
+			guilds = guilds.filter(guild => (filtered.indexOf(guild.id) !== -1));
 			res.render('dashboard/servers', {title: 'Chishiki: Dashboard', user: session.user, servers: guilds});
 		});
 	}).catch(next);
@@ -46,7 +46,7 @@ router.get(/^\/(\d+)$/, (req, res, next) => {
 		return Guild.findById(guildId);
 	}).then(guild => {
 		guild.id = guildId;
-		res.render('dashboard/guild', {title: `Chishiki: ${guild.name}`, guild: guild, cogs: Guild.cogs});
+		res.render('dashboard/guild', {title: `Chishiki: ${guild.name}`, user: session.user, guild: guild, cogs: Guild.cogs, helpers:{getcog: key => guild.cogs[key],getperm: key=> guild.permissions[key],inperm: (key1,key2,key3)=>guild.permissions[key1][key2].indexOf(key3)!==-1}});
 	});
 });
 
@@ -55,7 +55,7 @@ router.post('/save', (req, res, next) => {
 		return res.redirect('/'); //unauthorized
 	Guild.save(req.body).then(message => {
 		if (message.result == 'success')
-			res.render('sucess');
+			res.render('dashboard/success', {user: req.session.user});
 		else
 			next(message);
 	}).catch(next);

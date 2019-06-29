@@ -18,7 +18,7 @@ const Guild = {
 		return new Promise( (resolve, reject) => {
 			const response = { conf: {}, cogs: {} };
 			if (checkStr(params.guild, 21) && params.guild)
-				response.guild_id = guild;
+				response.guild_id = params.guild;
 			else
 				reject({}); //internal error;
 			if (checkStr(params.prefix, 5))
@@ -32,7 +32,7 @@ const Guild = {
 				} else
 					reject({}); //internal error;
 			} else {
-				respone.conf.welcome_channel = '';
+				response.conf.welcome_channel = '';
 			}
 			if (params.goodbye) {
 				if (checkStr(params.goodbye_channel, 21) && checkStr(params.goodbye_message, 1000)) {
@@ -41,7 +41,7 @@ const Guild = {
 				} else
 					reject({}); //internal error;
 			} else {
-				respone.conf.goodbye_channel = '';
+				response.conf.goodbye_channel = '';
 			}
 			const permissions = {};
 			for (const cog in cogs) {
@@ -58,7 +58,7 @@ const Guild = {
 						        role_list: params[cmd.permission+"_denied_roles"],
 						        channel_list: params[cmd.permission+"_denied_roles"]
 						    },
-						    default: params[cmd.permission+"_default"]
+						    default: !!params[cmd.permission+"_default"]
 						}
 					}
 				}
@@ -77,7 +77,7 @@ const Guild = {
 				    default: false
 				}
 			}
-			this.savePermissions(response.guild_id, permissions);
+			this.setPermissions(response.guild_id, permissions);
 			response.type = 'set_guild_info';
 			resolve(socket.request(response));
 		});

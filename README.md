@@ -1,7 +1,7 @@
 # <p align="center">Chishiki's website</p>
-<p align="center"><img src="https://cdn.discordapp.com/attachments/592105115872133160/594299077060198412/logoaaaa.png"><br>Our website for the discord hack week!</p><br>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/592105115872133160/594299077060198412/logoaaaa.png"><br>This is our website for the Discord Hack Week!</p><br>
 
-**Chishiki's website** has a great dashboard which will allow you to configure our bot and each feature it has.<br>
+**Chishiki's website** has a great dashboard which will allow you to configure our bot and it's features.<br>
 
 Chishiki's website works along with [this repository](https://github.com/Tocutoeltuco/hackweekbot) and was made by a 5 people team:<br>
 [@Tocutoeltuco](https://github.com/Tocutoeltuco) (`Tocutoeltuco#0018`, ID: `212634414021214209` on discord)<br>
@@ -11,4 +11,4 @@ Chishiki's website works along with [this repository](https://github.com/Tocutoe
 [@tlbl4nk](https://github.com/tlbl4nk) (`󠂪󠂪 󠂪󠂪 󠂪󠂪󠂪󠂪 󠂪󠂪 󠂪󠂪󠂪󠂪 󠂪󠂪 󠂪󠂪#8737`, ID: `436703225140346881` on discord)<br>
 
 ### <p align="center">:heart: Did you like it? :heart:</p>
-<p align="center">Don't hesitate to support us by giving a :star: to this project.</p>
+<p align="center">If yes, don't hesitate to support us by giving a :star: to this project.</p>

@@ -55,7 +55,7 @@ router.post('/save', (req, res, next) => {
 		return res.redirect('/'); //unauthorized
 	Guild.save(req.body).then(message => {
 		if (message.result == 'success')
-			res.render('dashboard/success', {user: req.session.user});
+			res.render('dashboard/success', {title: 'Chishiki: Success!', user: req.session.user});
 		else
 			next(message);
 	}).catch(next);
